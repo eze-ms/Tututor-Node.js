@@ -62,7 +62,7 @@ app.use(cookieParser())
 
 // Configuración de la sesión
 app.use(session({
-  secret: process.env.SECRETO,
+  secret: process.env.SECRETO || 'palabrasecreta',
   key: process.env.KEY,
   resave: false,
   saveUninitialized: false,

@@ -1,14 +1,13 @@
-const { Sequelize } = require('sequelize')
-require('dotenv').config({ path: 'variables.env' })
+const { Sequelize } = require('sequelize');
+require('dotenv').config({ path: 'variables.env' });
 
-// Condicional para usar SSL solo en producción
 const isProduction = process.env.NODE_ENV === 'production';
 
 const sequelize = process.env.DATABASE_URL
     ? new Sequelize(process.env.DATABASE_URL, {
         dialect: 'postgres',
         dialectOptions: {
-            ssl: isProduction ? { // Solo usa SSL en producción
+            ssl: isProduction ? {
                 require: true,
                 rejectUnauthorized: false,
             } : false,
