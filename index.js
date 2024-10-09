@@ -62,11 +62,10 @@ app.use(cookieParser())
 
 // Configuración de la sesión
 app.use(session({
-  secret: process.env.SECRETO,
-  key: process.env.KEY,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false }
+  secret: process.env.SECRETO, // Asegúrate de que esta línea esté utilizando tu variable de entorno
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: process.env.NODE_ENV === 'production' } // Solo usar cookies seguras en producción
 }))
 // Añadir esto para depurar
 app.use((req, res, next) => {
