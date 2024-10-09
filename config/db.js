@@ -1,23 +1,25 @@
 const { Sequelize } = require('sequelize')
 require('dotenv').config({ path: 'variables.env' })
 
-// Comprobando si existe DATABASE_URL (para producción)
+// Condicional para usar SSL solo en producción
+const isProduction = process.env.NODE_ENV === 'production';
+
 const sequelize = process.env.DATABASE_URL
     ? new Sequelize(process.env.DATABASE_URL, {
-          dialect: 'postgres',
-          dialectOptions: {
-              ssl: {
-                  require: true,
-                  rejectUnauthorized: false, // Importante en despliegues como Render
-              },
-          },
-          logging: false,
-      })
+        dialect: 'postgres',
+        dialectOptions: {
+            ssl: isProduction ? { // Solo usa SSL en producción
+                require: true,
+                rejectUnauthorized: false,
+            } : false,
+        },
+        logging: false,
+    })
     : new Sequelize(process.env.BD_NOMBRE, process.env.BD_USER, process.env.BD_PASS, {
-          host: process.env.BD_HOST,
-          port: process.env.BD_PORT,
-          dialect: 'postgres',
-          logging: false,
-      });
+        host: process.env.BD_HOST,
+        port: process.env.BD_PORT,
+        dialect: 'postgres',
+        logging: false,
+    });
 
 module.exports = sequelize;
