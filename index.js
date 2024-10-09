@@ -9,6 +9,8 @@ const path = require('path')
 const expressEjsLayouts = require('express-ejs-layouts')
 const flash = require('connect-flash')
 const session = require('express-session')
+const pgSession = require('connect-pg-simple')(session);
+const pool = require('./db');
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const passport = require('./config/passport')
@@ -62,12 +64,15 @@ app.use(cookieParser())
 
 // Configuración de la sesión
 app.use(session({
-  secret: process.env.SECRETO || 'palabrasecreta',
-  key: process.env.KEY,
+  store: new pgSession({
+    pool: pool, // Utiliza la conexión de PostgreSQL
+    tableName: 'session' // Nombre de la tabla para almacenar sesiones
+  }),
+  secret: process.env.SECRETO,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }
-}))
+  cookie: { secure: false }  // Asegúrate de cambiar esto a true si usas HTTPS
+}));
 // Añadir esto para depurar
 app.use((req, res, next) => {
   next();
