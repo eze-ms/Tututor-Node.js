@@ -64,15 +64,13 @@ app.use(cookieParser())
 
 // Configuración de la sesión
 app.use(session({
-  store: new pgSession({
-    pool: pool, // Utiliza la conexión de PostgreSQL
-    tableName: 'session' // Nombre de la tabla para almacenar sesiones
-  }),
   secret: process.env.SECRETO,
+  key: process.env.KEY,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }  // Asegúrate de cambiar esto a true si usas HTTPS
+  cookie: { secure: false }
 }));
+
 // Añadir esto para depurar
 app.use((req, res, next) => {
   next();
