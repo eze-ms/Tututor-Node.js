@@ -15,12 +15,11 @@ db.sync()  // O si quieres forzar la recreación: db.sync({ force: true })
 
 async function seedDB() {
   try {
-    await Usuarios.destroy({ where: {} });  // Eliminar todos los registros existentes
-    await Usuarios.bulkCreate(users);  // Insertar los usuarios en la tabla
-
-    console.log('Datos insertados correctamente');
+    for (let user of users) {
+      await crearNuevaCuenta(user);  // Usar la función del controlador
+    }
+    console.log('Usuarios creados correctamente');
     process.exit();
-
   } catch (error) {
     console.log(error);
     process.exit(1);
@@ -32,7 +31,6 @@ async function clearDB() {
     await Usuarios.destroy({ where: {} });  // Eliminar todos los registros
     console.log('Base de datos limpiada');
     process.exit();
-
   } catch (error) {
     console.log(error);
     process.exit(1);
