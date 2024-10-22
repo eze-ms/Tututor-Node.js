@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const db = require('../config/db');
+const Usuarios = require('../models/Usuarios');
 const { crearNuevaCuenta } = require('../controllers/usuariosController');
 const { users } = require('./teacherServices.js');
 
@@ -41,7 +42,7 @@ async function seedDB() {
 
 async function clearDB() {
   try {
-    await Usuarios.destroy({ where: {} });
+    await Usuarios.destroy({ where: {} });  // Elimina todos los registros de usuarios
     console.log('Base de datos limpiada');
     process.exit();
   } catch (error) {
