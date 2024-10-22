@@ -4,7 +4,7 @@ const Categoria = require('../models/Categorias');
 const Clase = require('../models/Clases');
 const Subcategorias = require('../models/Subcategorias');
 const Usuarios = require('../models/Usuarios');
-const { users } = require('./teacherServices.js'); // Asegúrate de exportar 'users' correctamente
+const { users } = require('./teacherServices.js'); 
 
 dotenv.config({ path: './variables.env' });
 
