@@ -54,8 +54,7 @@ const Clase = db.define('clases', {
   }
 });
 
-// Relación many-to-many con Subcategorias definida directamente en el modelo Clases
-Clase.belongsToMany(Subcategoria, { through: ClaseSubcategoria, as: 'subcategorias' });
+
 
 Clase.belongsTo(Categoria, { as: 'categoria', foreignKey: 'categoriaId', onUpdate: 'CASCADE', onDelete: 'SET NULL' });
 Clase.belongsTo(Usuarios, { foreignKey: 'usuarioId', onUpdate: 'CASCADE', onDelete: 'SET NULL' });

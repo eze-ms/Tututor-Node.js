@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
-const Clase = require('./Clases');
 const Subcategoria = require('./Subcategorias');
 
 // Definir el modelo para la tabla intermedia
