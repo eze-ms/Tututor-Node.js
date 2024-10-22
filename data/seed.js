@@ -1,19 +1,35 @@
 const dotenv = require('dotenv');
 const db = require('../config/db');
-const { crearNuevaCuenta } = require('../controllers/usuariosController'); // Reutilizar la función del controlador
-const { users } = require('./teacherServices.js'); // Lista de usuarios para el seed
+const { crearNuevaCuenta } = require('../controllers/usuariosController');
+const { users } = require('./teacherServices.js');
 
 dotenv.config({ path: './variables.env' });
 
-// Sincroniza la base de datos si es necesario
-db.sync()  
+// Simular req y res para usarlos en el seed
+const mockReq = (user) => ({
+  body: user,
+  headers: { host: 'tututor-node-js.onrender.com' },  // URL de Render
+  flash: (type, message) => {
+    console.log(`Flash Message [${type}]: ${message}`)
+  }
+})
+
+const mockRes = () => ({
+  redirect: (url) => {
+    console.log(`Redirigir a: ${url}`);
+  }
+});
+
+db.sync()
   .then(() => console.log('Base de datos sincronizada'))
   .catch(err => console.log('Error al sincronizar la base de datos:', err));
 
 async function seedDB() {
   try {
     for (let user of users) {
-      await crearNuevaCuenta(user);  // Usar la función del controlador
+      const req = mockReq(user);
+      const res = mockRes();
+      await crearNuevaCuenta(req, res);  // Usar req y res simulados
     }
     console.log('Usuarios creados correctamente');
     process.exit();
@@ -25,7 +41,7 @@ async function seedDB() {
 
 async function clearDB() {
   try {
-    await Usuarios.destroy({ where: {} });  // Eliminar todos los registros
+    await Usuarios.destroy({ where: {} });
     console.log('Base de datos limpiada');
     process.exit();
   } catch (error) {
