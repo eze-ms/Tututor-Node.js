@@ -7,7 +7,9 @@
     "desarrollo": "concurrently \"npm run dev\" \"npm run watch\"",
     "dev": "nodemon ./index.js",
     "start": "node ./index.js",
-    "watch": "webpack --watch --mode development"
+    "watch": "webpack --watch --mode development",
+    "seed:import":"node data/seed.js --import",
+    "seed:destroy":"node data/seed.js --destroy"
   },
   "author": "Ezequiel Macchi Seoane",
   "license": "ISC",
