@@ -9,8 +9,6 @@ const path = require('path')
 const expressEjsLayouts = require('express-ejs-layouts')
 const flash = require('connect-flash')
 const session = require('express-session')
-const pgSession = require('connect-pg-simple')(session)
-const pool = require('./config/db')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const passport = require('./config/passport')
@@ -19,21 +17,21 @@ const passport = require('./config/passport')
 //! 2. Configuración y Modelos de la Base de Datos
 // --------------------------------------
 
-const db = require('./config/db');
+const db = require('./config/db')
 
 // Importar todos los modelos
-require('./models/Usuarios');
-require('./models/Categorias');
-require('./models/Clases');
-require('./models/Comentarios');
-require('./models/Subcategorias');
-require('./models/ClaseSubcategoria');
+require('./models/Usuarios')
+require('./models/Categorias')
+require('./models/Clases')
+require('./models/Comentarios')
+require('./models/Subcategorias')
+require('./models/ClaseSubcategoria')
 require('./models/associations')
 
 // Conexión a la Base de Datos y sincronización
 db.sync({ alter: true }) // Actualiza la estructura sin eliminar datos
   .then(() => console.log('DB Conectada correctamente'))
-  .catch((error) => console.log('Error al conectar con la DB:', error));
+  .catch((error) => console.log('Error al conectar con la DB:', error))
 
 // --------------------------------------
 //! 3. Configuración de la Aplicación Express
@@ -65,10 +63,6 @@ app.use(cookieParser())
 
 // Configuración de la sesión
 app.use(session({
-  store: new pgSession({
-        pool: pool, 
-        tableName: 'session' // Tabla donde se almacenarán las sesiones
-    }),
   secret: process.env.SECRETO,
   key: process.env.KEY,
   resave: false,
