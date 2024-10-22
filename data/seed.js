@@ -1,15 +1,12 @@
 const dotenv = require('dotenv');
 const db = require('../config/db');
-const Categoria = require('../models/Categorias');
-const Clase = require('../models/Clases');
-const Subcategorias = require('../models/Subcategorias');
-const Usuarios = require('../models/Usuarios');
-const { users } = require('./teacherServices.js'); 
+const { crearNuevaCuenta } = require('../controllers/usuariosController'); // Reutilizar la función del controlador
+const { users } = require('./teacherServices.js'); // Lista de usuarios para el seed
 
 dotenv.config({ path: './variables.env' });
 
 // Sincroniza la base de datos si es necesario
-db.sync()  // O si quieres forzar la recreación: db.sync({ force: true })
+db.sync()  
   .then(() => console.log('Base de datos sincronizada'))
   .catch(err => console.log('Error al sincronizar la base de datos:', err));
 
