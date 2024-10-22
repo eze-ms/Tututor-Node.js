@@ -7,7 +7,7 @@ const ClaseSubcategoria = db.define('ClaseSubcategoria', {
   claseId: {
     type: Sequelize.UUID,
     references: {
-      model: Clase,
+      model: 'clases',
       key: 'id'
     }
   },
