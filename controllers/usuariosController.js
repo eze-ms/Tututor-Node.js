@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator')
 const Usuarios = require('../models/Usuarios')
+const Clase = require('../models/Clases')
 const enviarEmail = require('../handler/emails')
 const multer = require('multer')
 const shortid = require('shortid')

@@ -30,7 +30,8 @@ const Usuarios = db.define('usuarios', {
         allowNull: true
     },
     imagen: {
-        type: Sequelize.STRING(60)
+        type: Sequelize.STRING(60),
+        allowNull: true
     },
     about: {
         type: Sequelize.TEXT
