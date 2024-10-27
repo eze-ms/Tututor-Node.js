@@ -96,14 +96,28 @@ app.use((req, res, next) => {
   next()
 })
 
-//! Verifica si la carpeta existe; si no, la crea
-const fs = require('fs')
-const uploadDir = path.join(__dirname, 'public/uploads/usuarios');
+// --------------------------------------
+//! Verificación de Directorios de Carga
+// --------------------------------------
 
+const fs = require('fs');
+const path = require('path');
+
+const uploadDir = path.join(__dirname, 'public/uploads/usuarios');
+const gruposDir = path.join(__dirname, 'public/uploads/grupos');
+
+// Verifica si la carpeta `usuarios` existe; si no, la crea
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
-    console.log('Directorio de carga creado en producción');
+    console.log('Directorio de carga para usuarios creado en producción');
 }
+
+// Verifica si la carpeta `grupos` existe; si no, la crea
+if (!fs.existsSync(gruposDir)) {
+    fs.mkdirSync(gruposDir, { recursive: true });
+    console.log('Directorio de carga para grupos creado en producción');
+}
+
 
 // --------------------------------------
 //! 5. Rutas de la Aplicación

@@ -1,6 +1,8 @@
 const dotenv = require('dotenv');
 const db = require('../config/db');
 const Usuarios = require('../models/Usuarios');
+const Categoria = require('../models/Categorias');
+const Subcategoria = require('../models/Subcategorias');
 const { crearNuevaCuenta } = require('../controllers/usuariosController');
 const { users } = require('./teacherServices.js');
 
