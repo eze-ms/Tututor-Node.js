@@ -101,8 +101,6 @@ app.use((req, res, next) => {
 // --------------------------------------
 
 const fs = require('fs');
-const path = require('path');
-
 const uploadDir = path.join(__dirname, 'public/uploads/usuarios');
 const gruposDir = path.join(__dirname, 'public/uploads/grupos');
 
