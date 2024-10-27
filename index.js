@@ -96,6 +96,15 @@ app.use((req, res, next) => {
   next()
 })
 
+//! Verifica si la carpeta existe; si no, la crea
+const fs = require('fs')
+const uploadDir = path.join(__dirname, 'public/uploads/usuarios');
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+    console.log('Directorio de carga creado en producción');
+}
+
 // --------------------------------------
 //! 5. Rutas de la Aplicación
 // --------------------------------------
